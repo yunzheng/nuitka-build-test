@@ -42,51 +42,16 @@ jobs:
 
       - name: Verbose scons output in compilation
         run: |
-          python -m nuitka --show-scons --standalone test.py
-          python -m nuitka --show-scons --standalone --run test.py
-
-  mac-python3:
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        python_version:
-          #- '3.7'
-          # - '3.8'
-            - '3.9'
-            # TODO: The orderedset wheel doesn't build yet, either disable that
-            # or find an alternative.
-            # - '3.10'
-    name: macOS Python ${{ matrix.python_version }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Python ${{ matrix.python_version }}
-        uses: actions/setup-python@v2
+          python -m nuitka --show-scons --standalone --onefile test.py
+          #python -m nuitka --show-scons --standalone --run test.py
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/heads/')
         with:
-          python-version: ${{ matrix.python_version }}
+          name: artefacts
+          path: |
+            test.dis/test
 
-      - name: Verbose installation output for Python
-        run: |
-          set -x
-          which python
-          otool -L $(which python)
-          otool -l $(which python)
-          ls -lR $(dirname $(dirname $(which python)))
-      - name: Install Nuitka dependencies
-        run: |
-          pip install -r requirements-devel.txt
-      - name: Install Nuitka
-        run:
-          pip install nuitka
-
-      - name: Verbose scons output in compilation
-        run: |
-          python -m nuitka --show-scons --standalone --assume-yes-for-downloads test.py
-      - name: Run Nuitka test suite
-        run: |
-          python -m nuitka --version
-          env | sort
-          python ./tests/run-tests --no-other-python --skip-all-cpython-tests
   windows:
     runs-on: windows-latest
     strategy:
@@ -118,12 +83,11 @@ jobs:
           pip install nuitka
       - name: Verbose scons output in compilation
         run: |
-          python -m nuitka --show-scons --standalone --assume-yes-for-downloads test.py
-
+          python -m nuitka --show-scons --standalone --onefile --assume-yes-for-downloads test.py
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         if: startsWith(github.ref, 'refs/heads/')
         with:
           name: artefacts
           path: |
-            test.exe
+            test.dis/test.exe
