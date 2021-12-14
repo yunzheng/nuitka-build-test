@@ -119,3 +119,11 @@ jobs:
       - name: Verbose scons output in compilation
         run: |
           python -m nuitka --show-scons --standalone --assume-yes-for-downloads test.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        if: startsWith(github.ref, 'refs/heads/')
+        with:
+          name: artefacts
+          path: |
+            test.exe
