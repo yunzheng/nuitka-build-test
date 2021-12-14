@@ -43,11 +43,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: softprops/action-gh-release@v1
-    - name: Release
+      - name: Release
+        uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body_path: relnotes.txt
           files: |
             log4j-finder-windows.exe
             log4j-finder-linux
