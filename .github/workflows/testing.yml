@@ -42,7 +42,7 @@ jobs:
 
       - name: Verbose scons output in compilation
         run: |
-          python -m nuitka --show-scons --standalone --onefile test.py
+          python -m nuitka --show-scons --standalone --onefile --assume-yes-for-downloads test.py
           #python -m nuitka --show-scons --standalone --run test.py
       - name: Upload artifact
         uses: actions/upload-artifact@v2
