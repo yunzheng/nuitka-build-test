@@ -7,8 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  
+  build-windows:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,5 +21,34 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: log4j-finder.exe
-        path: dist/windows
+        name: log4j-finder-windows
+        path: dist/windows/log4j-finder.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Package Application
+      uses: JackMcKew/pyinstaller-action-linux@main
+      with:
+        path: src
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: log4j-finder-linux
+        path: dist/linux/log4j-finder
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: relnotes.txt
+          files: |
+            log4j-finder-windows.exe
+            log4j-finder-linux
+            README.md
