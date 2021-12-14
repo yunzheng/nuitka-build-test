@@ -50,7 +50,7 @@ jobs:
         with:
           name: artefacts
           path: |
-            test.dis/test
+            test
 
   windows:
     runs-on: windows-latest
@@ -90,4 +90,4 @@ jobs:
         with:
           name: artefacts
           path: |
-            test.dis/test.exe
+            test.exe
