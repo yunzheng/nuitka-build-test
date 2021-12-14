@@ -17,7 +17,7 @@ jobs:
     - name: Package Application
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
-        path: log4j-finder.spec
+        path: .
 
     - uses: actions/upload-artifact@v2
       with:
