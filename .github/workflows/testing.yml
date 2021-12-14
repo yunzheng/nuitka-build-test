@@ -87,8 +87,8 @@ jobs:
     strategy:
       matrix:
         python_version:
-            - '3.7'
-            - '3.8'
+          #- '3.7'
+          # - '3.8'
             - '3.9'
             # TODO: The orderedset wheel doesn't build yet, either disable that
             # or find an alternative.
