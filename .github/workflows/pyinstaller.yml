@@ -31,10 +31,11 @@ jobs:
       shell: bash
       run: |
         set -x \
-        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash -x
     - name: pyenv --help
       shell: bash
       run: |
+        find / -type f -name 'pyenv'
         ~/.pyenv/bin/pyenv --help
     - name: create artifact
       run: |
