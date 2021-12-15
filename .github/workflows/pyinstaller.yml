@@ -77,7 +77,7 @@ jobs:
       run: |
         set -x \
         curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
-        && LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" CPPFLAGS="-O2 -I${OPENSSL_DIR}/include" CFLAGS="-I${OPENSSL_DIR}/include" \
+        && LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" CPPFLAGS="-O2 -I${OPENSSL_DIR}/include -D_FORTIFY_SOURCE=0" CFLAGS="-I${OPENSSL_DIR}/include -D_FORTIFY_SOURCE=0" \
             LD_FLAGS="-L${OPENSSL_DIR}/lib -Wl,-rpath,${OPENSSL_DIR}/lib" LD_RUN_PATH="${OPENSSL_DIR}/lib" \
             CONFIGURE_OPTS="--with-openssl=${OPENSSL_DIR}" PYTHON_CONFIGURE_OPTS="--enable-shared" \
             ~/.pyenv/bin/pyenv install ${PYTHON_LAST} \
