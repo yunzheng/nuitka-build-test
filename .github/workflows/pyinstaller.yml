@@ -15,10 +15,10 @@ jobs:
       fail-fast: false
     steps:
     - name: say hello
-      shell: bash -c {}
+      shell: bash
       run: echo hello!
     - name: pushd
-      shell: bash -c {}
+      shell: bash
       run: pushd /tmp
     - name: deps
       run: |
