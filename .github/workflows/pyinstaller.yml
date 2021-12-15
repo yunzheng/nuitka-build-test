@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: quay.io/pypa/manylinux_2_24_x86_64
-      shell: bash
       env:
         PYTHON_VERSION: 3.6
         PYTHON_LAST: 3.6.15
@@ -23,6 +22,9 @@ jobs:
     - name: say hello
       run: echo hello!
     - name: check self
+      run: ps auxww
+    - name: check self bash
+      shell: bash
       run: ps auxww
     - name: pushd
       shell: bash
