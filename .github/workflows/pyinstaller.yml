@@ -17,7 +17,7 @@ jobs:
         PYINSTALLER_VERSION: 3.6
         OPENSSL_DIR: /usr/local/ssl
         LD_LIBRARY_PATHZZ: ${OPENSSL_DIR}/lib
-        PATH: ~/.pyenv/bin:${OPENSSL_DIR}:$PATH
+        PATHZ: ~/.pyenv/bin:${OPENSSL_DIR}:$PATH
     strategy:
       fail-fast: false
     steps:
@@ -72,5 +72,5 @@ jobs:
         && LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" CPPFLAGS="-O2 -I${OPENSSL_DIR}/include" CFLAGS="-I${OPENSSL_DIR}/include" \
             LD_FLAGS="-L${OPENSSL_DIR}/lib -Wl,-rpath,${OPENSSL_DIR}/lib" LD_RUN_PATH="${OPENSSL_DIR}/lib" \
             CONFIGURE_OPTS="--with-openssl=${OPENSSL_DIR}" PYTHON_CONFIGURE_OPTS="--enable-shared" \
-            pyenv install ${PYTHON_LAST} \
-        && pyenv global ${PYTHON_LAST}
+            ~/.bin/pyenv install ${PYTHON_LAST} \
+        && ~/.bin/pyenv global ${PYTHON_LAST}
