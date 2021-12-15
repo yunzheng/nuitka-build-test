@@ -82,8 +82,8 @@ jobs:
             CONFIGURE_OPTS="--with-openssl=${OPENSSL_DIR}" PYTHON_CONFIGURE_OPTS="--enable-shared" \
             ~/.pyenv/bin/pyenv install ${PYTHON_LAST} \
         && ~/.pyenv/bin/pyenv global ${PYTHON_LAST} \
-        && pyenv exec pip install --upgrade pip setuptools wheel \
-        && pyenv exec pip install --upgrade pyinstaller==${PYINSTALLER_VERSION}
+        && ~/.pyenv/bin/pyenv exec pip install --upgrade pip setuptools wheel \
+        && ~/.pyenv/bin/pyenv exec pip install --upgrade pyinstaller==${PYINSTALLER_VERSION}
     - name: pyinstaller
       shell: bash
       run: |
