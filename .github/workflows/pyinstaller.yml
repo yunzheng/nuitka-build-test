@@ -11,12 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: quay.io/pypa/manylinux_2_24_x86_64
+      shell: bash
+      env:
+        PYTHON_VERSION: 3.6
+        PYTHON_LAST: 3.6.15
+        PYINSTALLER_VERSION: 3.6
+        OPENSSL_DIR: /usr/local/ssl
     strategy:
       fail-fast: false
     steps:
     - name: say hello
-      shell: bash
       run: echo hello!
+    - name: check self
+      run: ps auxww
     - name: pushd
       shell: bash
       run: pushd /tmp
@@ -55,6 +62,9 @@ jobs:
             CONFIGURE_OPTS="--with-openssl=${OPENSSL_DIR}" PYTHON_CONFIGURE_OPTS="--enable-shared" \
             /root/.pyenv/bin/pyenv install ${PYTHON_LAST} \
         && /root/.pyenv/bin/pyenv global ${PYTHON_LAST}
+    - name: find
+      shell: bash
+      run: find /github
 
     - uses: actions/upload-artifact@v2
       with:
