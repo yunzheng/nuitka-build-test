@@ -16,14 +16,25 @@ jobs:
         PYTHON_LAST: 3.6.15
         PYINSTALLER_VERSION: 3.6
         OPENSSL_DIR: /usr/local/ssl
+        LD_LIBRARY_PATHZ: ${OPENSSL_DIR}/lib
+        PATHZ: ~/.pyenv/bin:${OPENSSL_DIR}:$PATH
     strategy:
       fail-fast: false
     steps:
+    - uses: actions/checkout@v2
     - name: say hello
       run: echo hello!
     - name: pushd
       shell: bash
-      run: pushd /tmp
+      run: pushd /tmp && env
+    - name: create artifact
+      run: |
+        mkdir -p dist/linux
+        echo "test" > log4j-finder
+    - uses: actions/upload-artifact@v2
+      with:
+        name: log4j-finder-linux.zip
+        path: dist/linux/log4j-finder
     - name: find
       shell: bash
       run: find /github
@@ -57,13 +68,8 @@ jobs:
       shell: bash
       run: |
         curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
-        && CPPFLAGS="-O2 -I${OPENSSL_DIR}/include" CFLAGS="-I${OPENSSL_DIR}/include" \
+        && LD_LIBRARY_PATH=${LD_LIBRARY_PATHZ} CPPFLAGS="-O2 -I${OPENSSL_DIR}/include" CFLAGS="-I${OPENSSL_DIR}/include" \
             LD_FLAGS="-L${OPENSSL_DIR}/lib -Wl,-rpath,${OPENSSL_DIR}/lib" LD_RUN_PATH="${OPENSSL_DIR}/lib" \
             CONFIGURE_OPTS="--with-openssl=${OPENSSL_DIR}" PYTHON_CONFIGURE_OPTS="--enable-shared" \
             ~/.pyenv/bin/pyenv install ${PYTHON_LAST} \
         && ~/.pyenv/bin/pyenv global ${PYTHON_LAST}
-
-    - uses: actions/upload-artifact@v2
-      with:
-        name: log4j-finder-linux.zip
-        path: dist/linux/log4j-finder
