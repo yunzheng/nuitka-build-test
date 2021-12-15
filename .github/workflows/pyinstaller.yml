@@ -27,11 +27,12 @@ jobs:
     - name: pushd
       shell: bash
       run: pushd /tmp && env
-    - name: pyenv
+    - name: install pyenv
       shell: bash
       run: |
         set -x \
         curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+    - name: pyenv --help
       shell: bash
       run: |
         ~/.pyenv/bin/pyenv --help
