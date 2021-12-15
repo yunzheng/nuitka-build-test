@@ -21,11 +21,6 @@ jobs:
     steps:
     - name: say hello
       run: echo hello!
-    - name: check self
-      run: ps auxww
-    - name: check self bash
-      shell: bash
-      run: ps auxww
     - name: pushd
       shell: bash
       run: pushd /tmp
