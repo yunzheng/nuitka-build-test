@@ -30,8 +30,10 @@ jobs:
     - name: install pyenv
       shell: bash
       run: |
-        set -x \
-        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash -x
+        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer -o pyenv-installer
+        ls -la pyenv-installer
+        cat pyenv-installer | head
+        bash -x pyenv-installer
     - name: pyenv --help
       shell: bash
       run: |
