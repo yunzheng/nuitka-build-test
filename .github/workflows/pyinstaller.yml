@@ -27,6 +27,14 @@ jobs:
     - name: pushd
       shell: bash
       run: pushd /tmp && env
+    - name: pyenv
+      shell: bash
+      run: |
+        set -x \
+        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+      shell: bash
+      run: |
+        ~/.pyenv/bin/pyenv --help
     - name: create artifact
       run: |
         mkdir -p dist/linux
