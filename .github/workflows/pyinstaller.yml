@@ -89,7 +89,7 @@ jobs:
         LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" ~/.pyenv/bin/pyenv exec pip install --upgrade pip setuptools wheel \
         && LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" ~/.pyenv/bin/pyenv exec pip install --upgrade pyinstaller==${PYINSTALLER_VERSION} \
         && LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" ~/.pyenv/bin/pyenv exec pip install colorama \
-        && LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" ~/.pyenv/bin/pyenv exec pyinstaller --clean -y --dist --onefile ./dist log4j-finder.py
+        && LD_LIBRARY_PATH="${OPENSSL_DIR}/lib" ~/.pyenv/bin/pyenv exec pyinstaller --clean -y --onefile --dist  ./dist log4j-finder.py
     - uses: actions/upload-artifact@v2
       with:
         name: log4j-finder-linux.zip
