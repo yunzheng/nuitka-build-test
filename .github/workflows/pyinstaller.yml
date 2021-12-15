@@ -34,6 +34,7 @@ jobs:
         && apt-get clean -qq \
         && rm -rf /var/lib/apt/list/*
     - name: openssl 1.1.1
+      shell: bash
       run: |
         set -x \
         && apt-get remove -qq -y libssl-dev \
@@ -46,6 +47,7 @@ jobs:
         && popd \
         && rm -rf openssl-1.1.1 openssl-1.1.1.tar.gz
     - name: pyenv
+      shell: bash
       run: |
         curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
         && CPPFLAGS="-O2 -I${OPENSSL_DIR}/include" CFLAGS="-I${OPENSSL_DIR}/include" \
